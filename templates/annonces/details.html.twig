@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces SF5 -Detail {{ annonces.nomAnnonces }}-{% endblock %}
+
+{% block body %}
+<div class="main-content col-md-12">
+    <h1 class="alert-warning text-center h1 text-info p-2">
+        <i class="fas fa-info-circle"></i>
+        DETAILS DU PRODUIT : {{ annonces.nomAnnonces }}
+    </h1>
+    <ul class="list-group">
+
+            <li class="list-group-item active bg-warning">
+                {{ annonces.nomAnnonces }}
+            </li>
+            <li class="list-group-item text-center">
+                <img src="/img{{ asset(annonces.imageAnnonces) }}" alt="{{ annonces.nomAnnonces }}" title="{{ annonces.nomAnnonces }}"/>
+            </li>
+            <li class="list-group-item">
+                <h5 class="text-danger">Description :</h5>
+                <p>{{ annonces.descriptionAnnonces }}</p>
+            </li>
+            <li class="list-group-item">
+                <h5 class="text-danger">Prix :</h5>
+                {{ annonces.prixAnnonces }} €
+            </li>
+            <li class="list-group-item">
+                <h5 class="text-danger">Déposé le :</h5>
+                {{ annonces.dateAnnonces| date('d-m-Y') }}
+            </li>
+            <li class="list-group-item">
+                <a href="{{ path('annonces') }}" class="btn btn-outline-success">
+                    <i class="fas fa-backward"></i>
+                    Retour
+                </a>
+                <a href="" class="btn btn-outline-warning">
+                    <i class="fas fa-cart-arrow-down"></i>
+                    Ajouter au panier
+                </a>
+            </li>
+
+
+    </ul>
+</div>
+{% endblock %}

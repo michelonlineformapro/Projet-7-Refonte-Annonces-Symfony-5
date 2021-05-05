@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annnonces SF5 -Ajouter annonces-{% endblock %}
+
+{% block body %}
+    <div class="main-content mt-5">
+        <h1 class="alert-warning p-2 text-info text-center">
+            <i class="fas fa-cart-plus"></i>
+            AJOUTER UNE ANNONCES
+        </h1>
+        {{ form(form_edit_annonce) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+html{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+.card{
+    height: 100%;
+    padding: 20px;
+}
+
+.nav-link{
+
+}
+.nav-link:hover{
+    color: #6e1c44!important;
+
+}

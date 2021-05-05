@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annnonces SF5 -ACCUEIL-{% endblock %}
+
+{% block body %}
+
+        <div class="main-content">
+
+            <h1 class="alert-warning text-center h1 text-info p-2">
+                <i class="fab fa-bitcoin"></i>
+                TOP DES VENTES
+                <i class="fab fa-bitcoin"></i>
+            </h1>
+
+            <h2 class="text-success">RECHERCHER</h2>
+            {{ form(searchForm) }}
+
+
+            <div class="row">
+                {# Boucle de parcours des annonces = ici lister_annonces est la cle spécifiée dans le controlleur #}
+                {# 'lister_annonces' => $annoncesRepository->findAll() #}
+
+                {% for annonces in lister_annonces %}
+                    <div class="col-md-4 col-sm-12 mt-3">
+                        <div class="card mt-3">
+                            {# lors de upload d'image le fichier est deplacer dans le dossier public/img #}
+                            <img class="card-img-top" src="/img{{ asset(annonces.imageAnnonces) }}" alt="Card image cap">
+                            <div class="card-body">
+                                {# Recuperation des Getters de l'entité annonces #}
+                                <h5 class="card-title">{{ annonces.nomAnnonces }}</h5>
+                                <p class="card-text">{{ annonces.descriptionAnnonces }}</p>
+                                <p class="card-text">PRIX : <b class="text-danger">{{ annonces.prixAnnonces }} €</b></p>
+
+                                <p class="card-text">Référence : <b>{{ annonces.numero.numeroReference }} </b></p>
+
+                                <p class="card-text">Catégories : <b class="text-success">{{ annonces.categories.nomCategorie }}</b></p>
+
+                                {% for distributeur in annonces.distributeurs %}
+                                    <p class="alert alert-success card-text">Distributeur(s) :{{ distributeur.nomDistributeur }}</p>
+                                {% endfor %}
+
+                                <p class="card-text">Région : <b>{{ annonces.regions.nomRegion }}</b></p>
+
+                                <p class="card-text">Posté le : <em>{{ annonces.dateAnnonces| date('d/m/Y') }}</em></p>
+                                <p class="card-text">Produit en stock : <em>{{ annonces.stockAnnonce ? 'OUI' : 'NON' }}</em></p>
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="fas fa-cart-arrow-down"></i>
+                                    Ajouter au panier
+                                </a>
+                                {# Pour les détails on spécifie le slug et id passé dans dans URL #}
+                                {# * @Route ("/annonces/{slug}/{id}", name="annonces_id") #}
+                                <a href="{{ path('accueil_annonces_id', {'slug':  annonces.nomAnnonces|slugify,'id': annonces.id}) }}" class="btn btn-outline-warning mt-2">
+                                    <i class="fas fa-info-circle"></i>
+                                    Plus d'infos
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+{% endblock %}
