@@ -20,13 +20,13 @@
             <i class="fas fa-plus-circle"></i>
             Ajouter une annonce
         </a>
-    {% if is_granted('ROLE_USER' and app.user) %}
+
         <div class="row">
             {# Boucle de parcours des annonces = ici lister_annonces est la cle spécifiée dans le controlleur #}
             {# 'lister_annonces' => $annoncesRepository->findAll() #}
 
 
-            {% for annonces in annonce_by_id %}
+            {% for annonces in app.user.annonces %}
 
                 <div class="col-md-4 col-sm-12 mt-3">
                     <div class="card mt-3">
@@ -51,10 +51,7 @@
 
                             <p class="card-text">Posté le : <em>{{ annonces.dateAnnonces| date('d/m/Y') }}</em></p>
                             <p class="card-text">Produit en stock : <em>{{ annonces.stockAnnonce ? 'OUI' : 'NON' }}</em></p>
-                            <a href="#" class="btn btn-outline-primary">
-                                <i class="fas fa-cart-arrow-down"></i>
-                                Ajouter au panier
-                            </a>
+
                             {# Pour les détails on spécifie le slug et id passé dans dans URL #}
                             {# * @Route ("/annonces/{slug}/{id}", name="annonces_id") #}
                             <a href="{{ path('annonces_id', {'slug':  annonces.nomAnnonces|slugify,'id': annonces.id}) }}" class="btn btn-outline-warning mt-2">
@@ -72,13 +69,12 @@
                                 Editer l'annonce
                             </a>
 
-
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
-    {% endif %}
+
 </div>
 
 

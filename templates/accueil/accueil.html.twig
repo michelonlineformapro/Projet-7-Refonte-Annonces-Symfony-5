@@ -43,7 +43,8 @@
 
                                 <p class="card-text">Posté le : <em>{{ annonces.dateAnnonces| date('d/m/Y') }}</em></p>
                                 <p class="card-text">Produit en stock : <em>{{ annonces.stockAnnonce ? 'OUI' : 'NON' }}</em></p>
-                                <a href="#" class="btn btn-outline-primary">
+                                {# A chaque click on appel la route ajouter_panier qui appel la methode qui incremente les quantités et recup le nom et le prix #}
+                                <a href="{{ path('ajouter_panier',{id: annonces.id}) }}" class="btn btn-outline-primary">
                                     <i class="fas fa-cart-arrow-down"></i>
                                     Ajouter au panier
                                 </a>

@@ -7,6 +7,7 @@ use App\Entity\Categories;
 use App\Entity\Distributeurs;
 use App\Entity\References;
 use App\Entity\Regions;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -66,6 +67,9 @@ class AnnoncesType extends AbstractType
                 'choice_label' => 'nomDistributeur',
                 'label' => 'Selectionnez un ou plusieurs distruteurs',
                 'multiple' => true
+            ])
+            ->add('utilisateurs', EntityType::class,[
+                'class' => User::class,
             ])
 
         ;

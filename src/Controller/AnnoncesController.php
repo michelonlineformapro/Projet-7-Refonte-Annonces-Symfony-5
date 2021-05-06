@@ -33,24 +33,19 @@ class AnnoncesController extends AbstractController
      * le name est utilisé pour creer des liens <a href>
      * Rappel pour lister vos route php bin/console debug:router
      */
-    public function index(AnnoncesRepository $annoncesRepository, Request $request, UserRepository $userRepository): Response
+    public function index(AnnoncesRepository $annoncesRepository): Response
     {
         //Dans cette methode on appel le patron de conception Annonce Repository creer lors de la generartion de l'entité annonce
         //Cette classe permet d'acceder au 4 methodes de base find, findOneBy, findAll et findBy
 
         //Render appel de manière abstraite Response puis un fichier Twig pour afficher une vue
-        $annonce = new Annonces();
-        $getAnnonce = $annoncesRepository->findAll();
-        $userInstance = new User();
-        $user = $userRepository->findAll();
 
-        $utilisateurs = $annonce->getUtilisateurs();
-        
         return $this->render('annonces/index.html.twig', [
             //Dans ce tableau associatif la cle lister_annonce sera utilisée dans twig (dans une boucle for) pour lister les annonces
             //Cette clé est egale a l'entité annonce avec un parcours de tous ses elements grace a la methode findAll de annonceRepository
-            'user' => $user,
-            'annonce_by_id' => $annoncesRepository->getAnnonceByUser($user)
+            //On affiche toutes les données en fonction de la cle etrangère utilisateur_id de l'entité annonce grace a twig
+            //{{ app.user.annonces }} => fait reference à $private annonces dans l'entité User qui est mappée sur l'entité annonce $utilisateur inversedBy = annonces(Dans User)
+            //'test' => $annoncesRepository->findAll()
 
         ]);
 
