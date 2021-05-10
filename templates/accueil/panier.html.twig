@@ -21,21 +21,32 @@
             <td>{{ element.quantite }}</td>
             <td>{{ element.quantite * element.annonce.prixAnnonces }} €</td>
             <td>
-                <a href="{{ path('ajouter_panier',{id:element.annonce.id}) }}" class="btn btn-outline-success">Ajouter un produit</a>
-                <a href="{{ path('enlever_panier',{id:element.annonce.id}) }}" class="btn btn-outline-warning">Enlever le produit</a>
-                <a href="" class="btn btn-outline-danger">Supprimer le produit</a>
+                <a href="{{ path('ajouter_panier',{id: element.annonce.id}) }}" class="btn btn-success">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+                <a href="{{ path('enlever_panier',{id: element.annonce.id}) }}" class="btn btn-warning">
+                    <i class="fa fa-minus-circle"></i>
+                </a>
+                <a href="{{ path('supprimer_panier',{id: element.annonce.id}) }}" class="btn btn-danger">
+                    <i class="fa fa-times"></i>
+                </a>
             </td>
         </tr>
         {% else %}
             <tr>
-                <td class="text-danger">Votre panier est vide</td>
+                <td class="text-center"><h4 class="text-danger text-center">Votre panier est vide</h4></td>
             </tr>
         {% endfor %}
         </tbody>
         <tfoot>
             <tr>
-                <td class="text-danger">{{ total }}</td>
-                <td class="btn btn-outline-info">Annuler la commande</td>
+                <td><p class="text-info">TOTAL:  {{ total }} €</p></td>
+                <td>
+                    <a href="{{ path('supprimer_tous_panier') }}" class="btn btn-outline-danger">Annuler la commande</a>
+                </td>
+                <td>
+                    <a href="" class="btn btn-outline-success">Valider la commande</a>
+                </td>
             </tr>
         </tfoot>
     </table>

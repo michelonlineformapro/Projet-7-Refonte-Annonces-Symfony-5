@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Annonces;
+use App\Entity\Commentaires;
+use App\Form\CommentairesType;
 use App\Form\RechercheType;
 use App\Repository\AnnoncesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AccueilController extends AbstractController
 {
+    private $commentairesID;
+
     /**
      * @Route("/", name="accueil_annonces")
      * Ici le 1er element est url dans votre navigateur
@@ -36,6 +40,7 @@ class AccueilController extends AbstractController
         //Formulaire de recherche -> creation du formulaire avec en paramètres (form/RechercherType + instance de entité annonce)
         $searchForm = $this->createForm(RechercheType::class, $annonces);
         //Recupe des valuers des champs du formulaire
+
         $searchForm->handleRequest($request);
 
         //Appel des GETTERS
@@ -45,6 +50,8 @@ class AccueilController extends AbstractController
         $cat =$annonces->getCategories();
         //Recup de la regions de l'annonce
         $region = $annonces->getRegions();
+
+
 
         //Appel de la vue
         return $this->render('accueil/accueil.html.twig', [
@@ -62,23 +69,35 @@ class AccueilController extends AbstractController
      * https://github.com/cocur/slugify
      */
 
-    public function annonceParId(Annonces $annonces):Response{
+    public function annonceParId(Annonces $annonces, Request $request):Response{
         //Dans cette methode l'entité annonce est passée en paramètre pour acceder aux Getters et Setters
 
         //Appel de la vue concernée
+        $commentaires = new Commentaires();
+        $commentairesID = $annonces->getId();
+        $commentaires->setAnnonces($annonces);
+
+        $form = $this->createForm(CommentairesType::class, $commentaires);
+        $form->handleRequest($request);
+
+
+        if($request->isMethod('POST') && $form->isSubmitted() && $form->isValid()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $annonces = new Annonces();
+
+            $entityManager->persist($commentaires);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre message à bien été posté');
+        }
 
         return  $this->render('accueil/details.html.twig',[
-
             //Dans ce tableau associatif la clé annonce accèse a l'entité
-
             //Cette cle sera utilisée dans votre vue Twig pour afficher les elements de l'entitié
-
             //ex: {{ annonces.nomAnnonce }} ici nomAnnonce() est un getter de l'entité annonce
-
+            'formMessage' => $form->createView(),
             "annonces" => $annonces
         ]);
     }
-
     /**
      * Cette methode est appelée sur le bouton ajouter au panier de la vue accueil/accueil.html.twig
      * @Route("/ajouter_panier/{id}", name="ajouter_panier")
@@ -134,6 +153,34 @@ class AccueilController extends AbstractController
         return $this->redirectToRoute('voir_panier');
     }
 
+    /**
+     * @Route("/supprimer_panier/{id}", name="supprimer_panier")
+     */
+
+    public function supprimerPanier(Annonces $annonces, SessionInterface $session){
+        //Recupération des variables de session cle + valeur tableau panier
+        $panier = $session->get("panier", []);
+        //Recupération de l'id de chaque annonces
+        $id = $annonces->getId();
+
+        //Si le tableau n'est vide et que la quantité est > à 1
+        if(!empty($panier[$id])){
+           unset($panier[$id]);
+        }
+        //On ajoute les valeur de $panier à la session
+        $session->set("panier", $panier);
+        //On redirige vers la route voir_panier qui appel la vue panier.html.twig
+        return $this->redirectToRoute('voir_panier');
+    }
+
+    /**
+     * @Route("/supprimer-tous-panier", name="supprimer_tous_panier")
+     */
+    public function supprimerTousPanier(SessionInterface $session):Response{
+        $session->remove("panier");
+        return $this->redirectToRoute("voir_panier");
+    }
+
 
     /**
      * @Route("/voir-panier", name="voir_panier")
@@ -167,6 +214,8 @@ class AccueilController extends AbstractController
             "total" => $total
         ]);
     }
+
+
 
 }
 

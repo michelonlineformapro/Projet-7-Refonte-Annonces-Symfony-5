@@ -73,6 +73,14 @@ class AnnoncesRepository extends ServiceEntityRepository
 
     }
 
+    function getAnnonceId(){
+        return $this->createQueryBuilder('annonce')
+            ->orderBy('annonce.id','ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 
     public function annonceTriDecroissant(){
@@ -90,6 +98,16 @@ class AnnoncesRepository extends ServiceEntityRepository
             ->orderBy('annonces.prixAnnonces', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    //Tri des annonce entre un prix min et un prix max
+    public function getMinMaxPrice($prixMin, $prixMax){
+        $query = $this->createQueryBuilder('annonces')
+            ->andWhere('annonces.prixAnnonces BETWEEN :prixmin AND :prixmax')
+            ->setParameter('prixmin', $prixMin)
+            ->setParameter('prixmax', $prixMax);
+
+        return $query->getQuery()->getResult();
     }
 
 

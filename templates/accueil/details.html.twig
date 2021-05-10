@@ -15,7 +15,7 @@
                 {{ annonces.nomAnnonces }}
             </li>
             <li class="list-group-item text-center">
-                <img src="/img{{ asset(annonces.imageAnnonces) }}" alt="{{ annonces.nomAnnonces }}" title="{{ annonces.nomAnnonces }}"/>
+                <img class="img-thumbnail" src="/img{{ asset(annonces.imageAnnonces) }}" alt="{{ annonces.nomAnnonces }}" title="{{ annonces.nomAnnonces }}"/>
             </li>
             <li class="list-group-item">
                 <h5 class="text-danger">Description :</h5>
@@ -38,6 +38,21 @@
                     <i class="fas fa-cart-arrow-down"></i>
                     Ajouter au panier
                 </a>
+            </li>
+
+            <li class="list-group-item">
+                {{ form(formMessage) }}
+            </li>
+
+            <li class="list-group-item">
+                <h4 class="text-info">Nombre de commentaire pour l'annonce {{ annonces.nomAnnonces }} : {{ annonces.commentaires|length }}</h4>
+
+
+                {% for commentaire in annonces.commentaires %}
+                    <p class="alert alert-success card-text">Auteur :{{ commentaire.auteurs }}</p>
+                    <p>{{ commentaire.contenus }}</p>
+                    <p>Posté le : {{ commentaire.datePoste| date('d-m-Y') }}</p>
+                {% endfor %}
             </li>
 
 

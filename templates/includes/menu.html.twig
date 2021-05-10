@@ -16,7 +16,7 @@
                     <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ path('recherche') }}">
                     <i class="fas fa-search-plus"></i>
                     RECHERCHE
                 </a>
@@ -35,17 +35,19 @@
 
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <a class="nav-link" href="{{ path('register') }}">
-                <i class="fas fa-registered"></i>
-                INSCRIPTION
-            </a>
-            {% if app.user %}
-            <a class="nav-link" href="{{ path('app_logout') }}">
-                <i class="fas fa-sign-in-alt"></i>
-                DECONNEXION
-            </a>
+                <a class="nav-link" href="{{ path('register') }}">
+                    <i class="fas fa-registered"></i>
+                    INSCRIPTION
+                </a>
 
-                <a class="nav-link" href="{{ path('admin') }}">
+                {% if app.user %}
+
+                <a class="nav-link" href="{{ path('app_logout') }}">
+                    <i class="fas fa-sign-in-alt"></i>
+                    DECONNEXION
+                </a>
+
+                <a class="nav-link" href="{{ path('annonces') }}">
                     <i class="fas fa-sign-in-alt"></i>
                     TABLEAU DE BORD
                 </a>
@@ -54,6 +56,13 @@
                 <a class="nav-link" href="{{ path('app_login') }}">
                     <i class="fas fa-sign-in-alt"></i>
                     CONNEXION
+                </a>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="nav-link btn btn-success" href="{{ path('admin') }}">
+                    <i class="fas fa-sign-in-alt"></i>
+                    ADMINISTRATION
                 </a>
             {% endif %}
         </form>

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Annonces;
 use App\Entity\Categories;
+use App\Entity\Commentaires;
 use App\Entity\Distributeurs;
 use App\Entity\References;
 use App\Entity\Regions;
@@ -30,7 +31,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Projet 7');
+            ->setTitle('<img src="img/sf_logo.png" />');
     }
 
     public function configureMenuItems(): iterable
@@ -56,6 +57,9 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::section('Utilisateurs'),
             MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class),
+
+            MenuItem::section('Commentaires'),
+            MenuItem::linkToCrud('Commentaires', 'fa fa-user', Commentaires::class),
 
         ];
 

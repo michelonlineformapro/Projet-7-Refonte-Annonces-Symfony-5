@@ -133,6 +133,9 @@ class AnnoncesController extends AbstractController
                 return $this->redirect($this->generateUrl('annonces_ajouter'));
             }
 
+
+
+
             //Si le formuaire est valide = on accède au manager a l'aide de doctrine
 
             $entityManager = $this->getDoctrine()->getManager();

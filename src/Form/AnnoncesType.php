@@ -8,6 +8,7 @@ use App\Entity\Distributeurs;
 use App\Entity\References;
 use App\Entity\Regions;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -70,6 +71,7 @@ class AnnoncesType extends AbstractType
             ])
             ->add('utilisateurs', EntityType::class,[
                 'class' => User::class,
+                'choice_label' => 'email',
             ])
 
         ;

@@ -54,6 +54,7 @@ class Annonces
      */
     private $prixAnnonces;
 
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\File(maxSize="6000000", maxSizeMessage="Le fichier est trop lourd ({{ size }} {{ suffix }}). La taille maximale autorisée est : {{ limit }} {{ suffix }}"),
@@ -101,10 +102,16 @@ class Annonces
      */
     private $utilisateurs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="annonces")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->distributeurs = new ArrayCollection();
         $this->updateAt = new \DateTime();
+        $this->commentaires = new ArrayCollection();
     }
 
 
@@ -257,6 +264,36 @@ class Annonces
     public function setUtilisateurs(?User $utilisateurs): self
     {
         $this->utilisateurs = $utilisateurs;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaires[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setAnnonces($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getAnnonces() === $this) {
+                $commentaire->setAnnonces(null);
+            }
+        }
 
         return $this;
     }
