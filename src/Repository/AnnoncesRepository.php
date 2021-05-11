@@ -101,11 +101,36 @@ class AnnoncesRepository extends ServiceEntityRepository
     }
 
     //Tri des annonce entre un prix min et un prix max
-    public function getMinMaxPrice($prixMin, $prixMax){
-        $query = $this->createQueryBuilder('annonces')
-            ->andWhere('annonces.prixAnnonces BETWEEN :prixmin AND :prixmax')
-            ->setParameter('prixmin', $prixMin)
-            ->setParameter('prixmax', $prixMax);
+    public function getMinMaxPrice($prixMin, $prixMax, $mot){
+        //Creation du queryBuilder + alias de entité Annonces
+        $query = $this->createQueryBuilder('annonces');
+
+        //Si les 2 champs sont remplis
+        if($prixMin && $prixMax){
+            $query
+                ->andWhere('annonces.prixAnnonces BETWEEN :prixmin AND :prixmax')
+                ->setParameter('prixmin', $prixMin)
+                ->setParameter('prixmax', $prixMax);
+        }
+        //Seulement le prix min
+        if($prixMin){
+            $query
+                ->andWhere('annonces.prixAnnonces <= :prixmin')
+                ->setParameter('prixmin', $prixMin);
+        }
+        //Seulement le prix max
+        if($prixMax){
+            $query
+                ->andWhere('annonces.prixAnnonces >= :prixmax')
+                ->setParameter('prixmax', $prixMax);
+        }
+
+        //Recherche par mot cle en +
+        if($mot){
+            $query
+                ->andWhere('MATCH_AGAINST(annonces.nomAnnonces)AGAINST(:mot boolean)>0')
+                ->setParameter('mot', $mot);
+        }
 
         return $query->getQuery()->getResult();
     }

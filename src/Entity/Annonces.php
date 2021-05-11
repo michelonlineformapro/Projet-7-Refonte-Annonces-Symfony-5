@@ -14,6 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=AnnoncesRepository::class)
+ * @ORM\Table(name="annonces", indexes={@ORM\Index(columns={"nom_annonces"},flags={"fulltext"})})
  * @UniqueEntity(fields="nomAnnonces", message="Erreur : un produit possède déja ce nom dans notre base de données")
  * @Vich\Uploadable()
  */

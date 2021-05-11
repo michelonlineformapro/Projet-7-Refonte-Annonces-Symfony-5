@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+//Generation de PDF DomPdf
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+
 /**
  * Class AccueilController
  * @package App\Controller
@@ -74,7 +79,6 @@ class AccueilController extends AbstractController
 
         //Appel de la vue concernée
         $commentaires = new Commentaires();
-        $commentairesID = $annonces->getId();
         $commentaires->setAnnonces($annonces);
 
         $form = $this->createForm(CommentairesType::class, $commentaires);
@@ -83,7 +87,6 @@ class AccueilController extends AbstractController
 
         if($request->isMethod('POST') && $form->isSubmitted() && $form->isValid()){
             $entityManager = $this->getDoctrine()->getManager();
-            $annonces = new Annonces();
 
             $entityManager->persist($commentaires);
             $entityManager->flush();
@@ -98,6 +101,43 @@ class AccueilController extends AbstractController
             "annonces" => $annonces
         ]);
     }
+
+    /**
+     * @Route("/pdf/{slug}/{id}", name="get_annonce_pdf")
+     */
+    public function generateAnnoncePDF(Annonces $annonces){
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('accueil/pdf.html.twig', [
+            'annonces' => $annonces
+        ]);
+
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html['html']);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("annonces.pdf", [
+            "Attachment" => false
+        ]);
+        $dompdf->output();
+        return new Response('', 200, [
+            'Content-Type' => 'application/pdf',
+        ]);
+    }
+
+
     /**
      * Cette methode est appelée sur le bouton ajouter au panier de la vue accueil/accueil.html.twig
      * @Route("/ajouter_panier/{id}", name="ajouter_panier")

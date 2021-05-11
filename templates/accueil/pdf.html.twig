@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'basePDF.html.twig' %}
 
 {% block title %}Annonces SF5 -Detail {{ annonces.nomAnnonces }}-{% endblock %}
 
@@ -15,7 +15,7 @@
                 {{ annonces.nomAnnonces }}
             </li>
             <li class="list-group-item text-center">
-                <img class="img-thumbnail" src="/img{{ asset(annonces.imageAnnonces) }}" alt="{{ annonces.nomAnnonces }}" title="{{ annonces.nomAnnonces }}"/>
+                <img class="card-img-top" src="public/bic.jpg">
             </li>
             <li class="list-group-item">
                 <h5 class="text-danger">Description :</h5>
@@ -43,43 +43,6 @@
 
             <li class="list-group-item">Posté le : <em>{{ annonces.dateAnnonces| date('d/m/Y') }}</em></li>
             <li class="list-group-item">Produit en stock : <em>{{ annonces.stockAnnonce ? 'OUI' : 'NON' }}</em></li>
-
-            <li class="list-group-item">
-                {# A chaque click on appel la route ajouter_panier qui appel la methode qui incremente les quantités et recup le nom et le prix #}
-                <a href="{{ path('ajouter_panier',{id: annonces.id}) }}" class="btn btn-outline-primary">
-                    <i class="fas fa-cart-arrow-down"></i>
-                    Ajouter au panier
-                </a>
-            </li>
-
-            <li class="list-group-item">
-                <a href="{{ path('accueil_annonces') }}" class="btn btn-outline-success">
-                    <i class="fas fa-backward"></i>
-                    Retour
-                </a>
-                <a href="" class="btn btn-outline-warning">
-                    <i class="fas fa-cart-arrow-down"></i>
-                    Ajouter au panier
-                </a>
-                <a target="_blank" href="{{ path('get_annonce_pdf',{slug: annonces.nomAnnonces|slugify, id: annonces.id}) }}" class="btn btn-outline-info">
-                    <i class="fas fa-cart-arrow-down"></i>
-                    Version PDF
-                </a>
-            </li>
-
-            <li class="list-group-item">
-                <h4 class="text-info">Nombre de commentaire pour l'annonce {{ annonces.nomAnnonces }} : {{ annonces.commentaires|length }}</h4>
-                {{ form(formMessage) }}
-            </li>
-
-            <li class="list-group-item">
-                {% for commentaire in annonces.commentaires %}
-                    <p class="alert alert-success card-text">Auteur :{{ commentaire.auteurs }}</p>
-                    <p>{{ commentaire.contenus }}</p>
-                    <p>Posté le : {{ commentaire.datePoste| date('d-m-Y') }}</p>
-                {% endfor %}
-            </li>
-
 
         </ul>
     </div>
