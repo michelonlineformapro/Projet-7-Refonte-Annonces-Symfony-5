@@ -98,8 +98,8 @@ class Annonces
     private $distributeurs;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces",cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $utilisateurs;
 

@@ -39,7 +39,9 @@
                                     <p class="alert alert-success card-text">Distributeur(s) :{{ distributeur.nomDistributeur }}</p>
                                 {% endfor %}
 
-                                <p class="card-text">Région : <b>{{ annonces.regions.nomRegion }}</b></p>
+                                <p class="card-text">Région : <b class="text-info">{{ annonces.regions.nomRegion }}</b></p>
+
+                                <p class="card-text">Nom du vendeur : <b class="text-info">Test</b></p>
 
                                 <p class="card-text">Posté le : <em>{{ annonces.dateAnnonces| date('d/m/Y') }}</em></p>
                                 <p class="card-text">Produit en stock : <em>{{ annonces.stockAnnonce ? 'OUI' : 'NON' }}</em></p>

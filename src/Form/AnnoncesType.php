@@ -69,10 +69,16 @@ class AnnoncesType extends AbstractType
                 'label' => 'Selectionnez un ou plusieurs distruteurs',
                 'multiple' => true
             ])
+            /*
             ->add('utilisateurs', EntityType::class,[
                 'class' => User::class,
+                'query_builder' => function (UserRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.id', 'ASC');
+                },
                 'choice_label' => 'email',
             ])
+            */
 
         ;
     }

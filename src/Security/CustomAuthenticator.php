@@ -97,7 +97,7 @@ class CustomAuthenticator extends AbstractFormLoginAuthenticator implements Pass
         }
 
 
-        return new RedirectResponse($this->urlGenerator->generate('admin'));
+        return new RedirectResponse($this->urlGenerator->generate('annonces'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

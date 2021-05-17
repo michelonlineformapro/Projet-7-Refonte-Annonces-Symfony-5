@@ -9,6 +9,7 @@ use App\Form\RechercheType;
 use App\Repository\AnnoncesRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class AnnoncesController
@@ -78,12 +80,15 @@ class AnnoncesController extends AbstractController
 
     /**
      * @Route("/ajouter", name="annonces_ajouter")
+     * @IsGranted ("ROLE_USER")
      */
 
     public function ajouterAnnonce(Request $request):Response{
 
         //Instance de l'entité annonces
         $annonces = new Annonces();
+        //Ici on recupere id de l'utilisateur
+        $annonces->setUtilisateurs($this->getUser());
 
         //Creer le formulaire = le methode createForm prend 2 paramètres
         //Le nom de la classe du form builder concerné (php bin/console make:form)
@@ -93,9 +98,11 @@ class AnnoncesController extends AbstractController
         $formAnnonces = $this->createForm(AnnoncesType::class, $annonces);
 
         //Creer le bouton soumission
-        $formAnnonces->add('btn_ajouter', SubmitType::class,[
+        $formAnnonces
+            ->add('btn_ajouter', SubmitType::class,[
             'label' => 'Ajouter annonces',
         ]);
+
 
         //Recuper les champs (valeur) du formulaire entré par l'utilisateur
         $formAnnonces->handleRequest($request);
@@ -134,12 +141,8 @@ class AnnoncesController extends AbstractController
             }
 
 
-
-
             //Si le formuaire est valide = on accède au manager a l'aide de doctrine
-
             $entityManager = $this->getDoctrine()->getManager();
-
             //On signale au manager qu'il doit persister le donnée dans l'entité Annonce
             $entityManager->persist($annonces);
             //On valide l'enregistrement des valeurs du formulaire dans l'entité
@@ -159,7 +162,7 @@ class AnnoncesController extends AbstractController
     }
 
     /**
-     * @Route ("/editer/{id}", name="editer_annonce")
+     * @Route ("/annonces/editer/{id}", name="editer_annonce")
      */
 
 

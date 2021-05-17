@@ -46,24 +46,25 @@
 
             <li class="list-group-item">
                 {# A chaque click on appel la route ajouter_panier qui appel la methode qui incremente les quantités et recup le nom et le prix #}
-                <a href="{{ path('ajouter_panier',{id: annonces.id}) }}" class="btn btn-outline-primary">
+                <a href="{{ path('ajouter_panier',{id: annonces.id}) }}" class="btn btn-outline-warning">
                     <i class="fas fa-cart-arrow-down"></i>
                     Ajouter au panier
                 </a>
             </li>
 
             <li class="list-group-item">
-                <a href="{{ path('accueil_annonces') }}" class="btn btn-outline-success">
+                <a href="{{ path('accueil_annonces') }}" class="btn btn-outline-danger">
                     <i class="fas fa-backward"></i>
                     Retour
-                </a>
-                <a href="" class="btn btn-outline-warning">
-                    <i class="fas fa-cart-arrow-down"></i>
-                    Ajouter au panier
                 </a>
                 <a target="_blank" href="{{ path('get_annonce_pdf',{slug: annonces.nomAnnonces|slugify, id: annonces.id}) }}" class="btn btn-outline-info">
                     <i class="fas fa-cart-arrow-down"></i>
                     Version PDF
+                </a>
+
+                <a href="{{ path('mail') }}" class="btn btn-outline-success">
+                    <i class="fas fa-envelope"></i>
+                    Contacter le vendeur
                 </a>
             </li>
 
