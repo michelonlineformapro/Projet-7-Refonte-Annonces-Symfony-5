@@ -136,6 +136,15 @@
     "monolog/monolog": {
         "version": "2.2.0"
     },
+    "msalsas/gdpr-consent-banner-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "24d737cb913093cdcad9d41771e9be42e2176fa2"
+        }
+    },
     "nikic/php-parser": {
         "version": "v4.10.4"
     },

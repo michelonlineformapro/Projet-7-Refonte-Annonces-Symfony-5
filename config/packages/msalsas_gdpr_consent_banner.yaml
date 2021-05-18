@@ -1,0 +1,8 @@
+msalsas_gdpr_consent_banner:
+  css: default # [default|none]
+  has_translations: true # [true|false]
+  text_message: 'Afin de vous proposer le meilleur service possible, ce site utilise des cookies.
+                En acceptant de continuer sur ce site, vous déclarer accepter leur utilisation.'
+  accept_message: 'Accepter' # [{message}|{key}]
+  fade_time: 2
+  time_to_expire: 30 days

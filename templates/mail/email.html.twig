@@ -1,0 +1,15 @@
+{% extends 'baseEmail.html.twig' %}
+
+{% block title %}Hello MailController!{% endblock %}
+
+{% block body %}
+    <div style="background-color: #0d5e42; color: white">
+        <img src="https://symfony.com/logos/symfony_black_02.png" width="25%">
+        <h2>Message de : {{ visiteur }}</h2>
+        <p>Sujet de email: {{ sujet }}</p>
+        <p>Message : {{ message }}</p>
+        <p>Concernce l'annonce {{ annonce.nomAnnonces }}</p>
+        <p>Description de l'annonce : {{ annonce.descriptionAnnonces }}</p>
+        <p><img src="{{ img }}"></p>
+    </div>
+{% endblock %}

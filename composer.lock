@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a56177c75aa83077f5b36394137028cd",
+    "content-hash": "b135ef4c304a97bbe8613a017c0e00b9",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -2384,6 +2384,68 @@
                 }
             ],
             "time": "2020-12-14T13:15:25+00:00"
+        },
+        {
+            "name": "msalsas/gdpr-consent-banner-bundle",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/msalsas/MsalsasGdprConsentBannerBundle.git",
+                "reference": "370877225d0ec6666eb7a658929aa1d0df846b02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/msalsas/MsalsasGdprConsentBannerBundle/zipball/370877225d0ec6666eb7a658929aa1d0df846b02",
+                "reference": "370877225d0ec6666eb7a658929aa1d0df846b02",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "symfony/framework-bundle": ">=4.0",
+                "symfony/yaml": ">=4.0"
+            },
+            "conflict": {
+                "symfony/symfony": "<4.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": ">=4.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Msalsas\\GdprConsentBannerBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Manolo Salsas",
+                    "email": "manolez@gmail.com"
+                }
+            ],
+            "description": "Symfony bundle for adding a GDPR consent banner",
+            "homepage": "https://github.com/msalsas/MsalsasGdprConsentBannerBundle",
+            "keywords": [
+                "banner",
+                "consent",
+                "gdpr"
+            ],
+            "support": {
+                "issues": "https://github.com/msalsas/MsalsasGdprConsentBannerBundle/issues",
+                "source": "https://github.com/msalsas/MsalsasGdprConsentBannerBundle/tree/master"
+            },
+            "time": "2020-04-04T12:23:51+00:00"
         },
         {
             "name": "nikic/php-parser",

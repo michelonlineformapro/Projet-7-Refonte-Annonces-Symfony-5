@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/globales.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/GdprPopup.css') }}">
     {% endblock %}
 
 
@@ -40,6 +41,8 @@
 
 
 
+{# include "@msalsas_gdpr_consent_banner/msalsas_gdpr_consent_banner_widget.html.twig" #}
+
 {% block footer %}
     {% include 'includes/footer.html.twig' %}
 {% endblock %}
@@ -50,6 +53,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/GdprPopup.js') }}"></script>
 {% endblock %}
 
 
